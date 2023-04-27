@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="m-4">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="navbar-nav mr-auto">
+            <span class="navbar-brand mb-0 h1">ToDo List</span>
+        </div>
+        <div class="navbar-nav mx-auto">
+            <span class="navbar nav-link text-success text-capitalize">Hai {{user.username}} :)</span>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <a href="{% url 'logout' %}" class="navbar nav-link">Logout</a>
+        </div>
+    </nav>
+</div>
+<br>
+<form method="post" class="row justify-content-md-center">
+    {% csrf_token %}
+    <div class="col-md-auto row">
+        <div class="col-auto">
+            <label for="inputText" class="visually-hidden">Add Note</label>
+            <input type="text" name="name" class="form-control" id="inputText" placeholder="Add Note">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-success mb-3">Add</button>
+        </div>
+    </div>
+</form>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        {% for obj in object_list %}
+        <div class="col-sm-3 mb-4">
+            <div class="card bg-light border-success">
+                <div class="card-body text-success">
+                    <h5 class="card-title text-capitalize">{{ obj.name }}</h5>
+                    <a href="{% url 'delete' obj.id %}" class="btn btn-success">Done</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}
